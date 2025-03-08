@@ -1,0 +1,79 @@
+{
+  "name": "ECharts",
+  "version": "0.0.2",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview",
+    "gen-gql": "graphql-codegen",
+    "watch": "npm-watch gen-gql"
+  },
+  "watch": {
+    "gen-gql": {
+      "patterns": [
+        "src"
+      ],
+      "extensions": [
+        "gql"
+      ]
+    }
+  },
+  "dependencies": {
+    "@ant-design/icons": "^5.5.2",
+    "@coze/api": "^1.0.14",
+    "@types/katex": "^0.16.7",
+    "@types/react-latex": "^2.0.3",
+    "antd": "^5.21.3",
+    "axios": "^1.7.9",
+    "classnames": "^2.5.1",
+    "constate": "^3.3.2",
+    "echarts": "^5.6.0",
+    "ezcloudbase": "^2.2.3",
+    "immer": "^10.1.1",
+    "katex": "^0.16.15",
+    "lodash": "^4.17.21",
+    "moment": "^2.30.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-katex": "^3.0.1",
+    "react-latex": "^2.0.0",
+    "react-markdown": "^9.0.1",
+    "react-router-dom": "^6.26.2",
+    "react-syntax-highlighter": "^15.6.1",
+    "rehype-katex": "^7.0.1",
+    "rehype-raw": "^7.0.0",
+    "remark-math": "^6.0.0",
+    "xlsx-js-style": "^1.2.0",
+    "zustand": "^5.0.2",
+    "zvm-code-context": "^0.4.3"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "^5.0.3",
+    "@graphql-codegen/typescript": "^4.1.0",
+    "@graphql-codegen/typescript-operations": "^4.3.0",
+    "@graphql-codegen/typescript-react-apollo": "^4.3.2",
+    "@graphql-codegen/typescript-resolvers": "^4.3.0",
+    "@originjs/vite-plugin-federation": "^1.3.6",
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.0",
+    "@types/react-katex": "^3.0.4",
+    "@types/react-syntax-highlighter": "^15.5.13",
+    "@typescript-eslint/eslint-plugin": "^8.8.1",
+    "@typescript-eslint/parser": "^8.8.1",
+    "@vitejs/plugin-react": "^4.3.2",
+    "eslint": "^8.0.0",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-react-refresh": "^0.4.12",
+    "get-graphql-schema": "^2.1.2",
+    "graphql": "^16.9.0",
+    "npm-watch": "^0.13.0",
+    "sass": "^1.79.4",
+    "typescript": "5.5.4",
+    "vite": "^5.4.11",
+    "vite-plugin-graphql-loader": "^4.0.4",
+    "vite-tsconfig-paths": "^5.0.1"
+  },
+  "gitHead": "06e13521af1ecfc36df61398dee58df0f653e18b"
+}
