@@ -31,15 +31,21 @@ export interface RingGraphChartPropData {
   value8?: number; // 图例值8
 
 
+  theme?: string; // 主题// light,dark
+
+
   chartName?: string; //图表名称
+  legendShow?: string; // 是否显示图例
   legendPosition?: string; // 图例位置,top，left,bottom,right
 
   innerRadius?: number; // 内半径
   outsideRadius?: number; // 外半径
 
   centerFontSize?: number; // 中心文字大小
-  centerFontWeight?: boolean; // 中心文字粗细
+  centerFontWeight?: string; // 中心文字粗细
   centerFontColor?: string; // 中心文字颜色
+
+
   
 }
 
@@ -61,10 +67,11 @@ export function RingGraphChart({ propData, event }: RingGraphChartProps) {
   const chartRef = useRef<HTMLDivElement>(null);
   const chartInstance = useRef<echarts.ECharts>();
 
+ 
   useEffect(() => {
     // 初始化图表
     if (chartRef.current) {
-      chartInstance.current = echarts.init(chartRef.current);
+      chartInstance.current = echarts.init(chartRef.current,propData.theme);
     }
 
     return () => {
@@ -75,8 +82,15 @@ export function RingGraphChart({ propData, event }: RingGraphChartProps) {
     };
   }, []);
 
+
   useEffect(() => {
     if (!chartInstance.current) return;
+
+    // 当主题改变时需要重新初始化图表
+    if (chartRef.current) {
+      chartInstance.current.dispose();
+      chartInstance.current = echarts.init(chartRef.current, propData.theme);
+    }
 
     const {
 
@@ -104,14 +118,19 @@ export function RingGraphChart({ propData, event }: RingGraphChartProps) {
       name8,
       value8,
 
+      theme = 'light',
       chartName,
+      legendShow = 'true',
       legendPosition = 'top',
       innerRadius = 30,
       outsideRadius = 80,
       centerFontSize = 18,
-      centerFontWeight = true,
+      centerFontWeight = 'false',
       centerFontColor = '#000'
     } = propData;
+
+
+   
 
     const radius = [innerRadius+'%', outsideRadius+'%']
 
@@ -134,9 +153,20 @@ export function RingGraphChart({ propData, event }: RingGraphChartProps) {
       center: [string, string],
       grid: any
     } => {
+      const baseConfig = {
+        legend: {
+          show: legendShow === 'true',
+        },
+        center: ['50%', '50%'] as [string, string],
+        grid: {}
+      };
+
+      if(legendShow === 'false') return baseConfig;
+
       switch(position) {
         case 'left': return { 
           legend: { 
+            ...baseConfig.legend,
             left: '2%', 
             top: 'middle',
             orient: 'vertical' as const
@@ -146,6 +176,7 @@ export function RingGraphChart({ propData, event }: RingGraphChartProps) {
         };
         case 'right': return { 
           legend: { 
+            ...baseConfig.legend,
             right: '2%', 
             top: 'middle',
             orient: 'vertical' as const
@@ -155,6 +186,7 @@ export function RingGraphChart({ propData, event }: RingGraphChartProps) {
         };
         case 'bottom': return { 
           legend: { 
+            ...baseConfig.legend,
             bottom: '2%', 
             left: 'center',
             orient: 'horizontal' as const
@@ -164,6 +196,7 @@ export function RingGraphChart({ propData, event }: RingGraphChartProps) {
         };
         default: return { 
           legend: { 
+            ...baseConfig.legend,
             top: '2%', 
             left: 'center',
             orient: 'horizontal' as const
@@ -179,6 +212,7 @@ export function RingGraphChart({ propData, event }: RingGraphChartProps) {
     // 配置项
     const option: EChartsOption = {
       title: undefined,
+      dataMode: "auto",
       tooltip: {
         trigger: 'item',
         formatter: (params: any) => {
@@ -224,8 +258,8 @@ export function RingGraphChart({ propData, event }: RingGraphChartProps) {
             label: {
               show: true,
               fontSize: centerFontSize,
-              fontWeight: centerFontWeight?'bold':'normal',
-              color: centerFontColor,
+              fontWeight: centerFontWeight=='true'?'bold':'normal',
+              color: theme=='dark' && (centerFontColor=='#000000' || centerFontColor=='#000' || centerFontColor=='black')?'#fff':centerFontColor,
 
             }
           },
@@ -238,7 +272,7 @@ export function RingGraphChart({ propData, event }: RingGraphChartProps) {
     };
 
     // 设置配置项
-    chartInstance.current.setOption(option);
+    chartInstance.current.setOption(option,);
 
     // 绑定点击事件
     if (event?.onClick) {

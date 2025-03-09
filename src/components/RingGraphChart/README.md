@@ -61,13 +61,15 @@ function App() {
 | :----------------: | :-----: | :------------------------------ | :--------: |
 |   `name1~name8`    | string  | 数据项名称                      |     -      |
 |  `value1~value8`   | number  | 数据项值                        |     -      |
+|      `theme`       | string  | 主题类型(light/dark)            |  'light'   |
 |    `chartName`     | string  | 图表名称                        | '数据统计' |
-|  `legendPosition`  | string  | 图例位置(top/right/bottom/left) |   'top'    |
+|   `legendShow`     | string | 是否显示图例,字符串true和false    |   true     |
+| `legendPosition` | string | legendShow为true时，图例位置(top/right/bottom/left)才生效 | 'top' |
 |   `innerRadius`    | number  | 内半径(%)                       |     30     |
 |  `outsideRadius`   | number  | 外半径(%)                       |     80     |
 |  `centerFontSize`  | number  | 中心文字大小                    |     18     |
-| `centerFontWeight` | boolean | 中心文字是否加粗                |    true    |
-| `centerFontColor`  | string  | 中心文字颜色                    |   '#000'   |
+| `centerFontWeight` | string | 中心文字是否加粗,字符串true和false |    true    |
+| `centerFontColor`  | string  | 中心文字颜色(dark主题下黑色文字会自动转为白色) |   '#000'   |
 
 ### Events
 
